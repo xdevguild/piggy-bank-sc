@@ -3,7 +3,7 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-#[elrond_wasm_derive::contract]
+#[elrond_wasm::contract]
 pub trait PiggyBank {
 	fn get_current_time(&self) -> u64 {
 		self.blockchain().get_block_timestamp()
