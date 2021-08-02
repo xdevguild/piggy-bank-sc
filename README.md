@@ -4,6 +4,10 @@ To interact with the PiggyBank Smart Contract, you would need to have [erdpy](ht
 
 To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.elrond.com/sdk-and-tools/erdpy/deriving-the-wallet-pem-file/)
 
+### Walkthrough video
+
+- [https://youtu.be/mIsNI7ZxQRM](https://youtu.be/mIsNI7ZxQRM)
+
 **Start with contract build**
 
 ```
