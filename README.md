@@ -12,7 +12,12 @@ To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](htt
 
 - [Elrond Smart Contracts - interacting using erdpy](https://youtu.be/mIsNI7ZxQRM)
 
-**Start with contract build**
+### Frontend App
+
+- [FE App repo](https://github.com/juliancwirko/elrond-simple-sc-frontend-app)
+- [https://elven-piggy-bank.netlify.app/](https://elven-piggy-bank.netlify.app/)
+
+### Start with contract build**
 
 ```
 erdpy contract build
