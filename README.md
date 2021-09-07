@@ -23,6 +23,8 @@ To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](htt
 erdpy contract build
 ```
 
+**Important** You would need some xEGLD on the testnet. There is one faucet which you can use: [https://r3d4.fr/elrond/testnet/](https://r3d4.fr/elrond/testnet/). **Sometimes it won't be able to send a lot of xEGLD**. You can also use devnet, where you should be able to use a web wallet's built-in faucet.
+
 ### Example erdpy interaction commands
 
 **Deploy the contract:**
