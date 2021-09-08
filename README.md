@@ -8,9 +8,10 @@ To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](htt
 
 - [Smart Contract for Elrond and Arwen](https://www.julian.io/articles/elrond-smart-contracts.html)
 
-### Walkthrough video
+### Walkthrough videos
 
 - [Elrond Smart Contracts - interacting using erdpy](https://youtu.be/mIsNI7ZxQRM)
+- [Elrond Smart Contracts - interacting using simple front-end app](https://youtu.be/Sjpj7Btasgs)
 
 ### Frontend App
 
