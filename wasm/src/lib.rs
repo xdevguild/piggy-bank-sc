@@ -1,13 +1,19 @@
+////////////////////////////////////////////////////
+////////////////// AUTO-GENERATED //////////////////
+////////////////////////////////////////////////////
+
 #![no_std]
 
 elrond_wasm_node::wasm_endpoints! {
     piggybank
     (
         init
-        createPiggy
         addAmount
-        payOut
-        getLockedAmount
+        createPiggy
         getLockTime
+        getLockedAmount
+        payOut
     )
 }
+
+elrond_wasm_node::wasm_empty_callback! {}
