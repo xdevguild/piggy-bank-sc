@@ -1,7 +1,6 @@
 #![no_std]
 
 elrond_wasm::imports!();
-elrond_wasm::derive_imports!();
 
 #[elrond_wasm::contract]
 pub trait PiggyBank {
@@ -9,99 +8,74 @@ pub trait PiggyBank {
     self.blockchain().get_block_timestamp()
   }
 
-  fn add(&self, val1: Self::BigUint, val2: Self::BigUint) -> Self::BigUint {
+  fn add(&self, val1: BigUint, val2: BigUint) -> BigUint {
     val1 + val2
   }
 
   #[init]
   fn init(&self) -> SCResult<()> {
-    let my_address: Address = self.blockchain().get_caller();
-    self.set_owner(&my_address);
+    let my_address = &self.blockchain().get_caller();
+    self.owner().set(&my_address.to_address());
     Ok(())
   }
 
-  #[endpoint]
-  fn amount(&self) -> SCResult<Self::BigUint> {
-    let caller = self.blockchain().get_caller();
-    
-    require!(
-      self.is_lock_time_empty(&caller) == false,
-      "You need to create your piggy bank first"
-    );
-
-    Ok(self.get_amount(&caller))
-  }
-
-  #[endpoint]
+  #[endpoint(createPiggy)]
   fn create_piggy(&self, lock_time: u64) -> SCResult<()> {
-    let caller = self.blockchain().get_caller();
+    let caller = &self.blockchain().get_caller();
+    let caller_address = caller.to_address();
     require!(
-      self.is_lock_time_empty(&caller) == true,
+      self.lock_time(&caller_address).is_empty() == true,
       "You already have one piggy"
     );
     require!(
       lock_time > self.get_current_time(),
       "Lock time should be in the future!"
     );
-    self.set_lock_time(&caller, lock_time);
+    self.lock_time(&caller_address).set(&lock_time);
     Ok(())
   }
 
-  #[endpoint]
+  #[endpoint(addAmount)]
   #[payable("EGLD")]
-  fn add_amount(&self, #[payment] payment: Self::BigUint) -> SCResult<()> {
-    let caller = self.blockchain().get_caller();
+  fn add_amount(&self, #[payment] payment: BigUint) -> SCResult<()> {
+    let caller = &self.blockchain().get_caller();
+    let caller_address = caller.to_address();
     require!(
-      self.is_lock_time_empty(&caller) == false,
+      self.lock_time(&caller_address).is_empty() == false,
       "You need to create your piggy bank first"
     );
-    let sum = self.get_amount(&caller);
+    let sum = self.locked_amount(&caller_address).get();
     let amount = self.add(sum, payment);
-    self.set_amount(&caller, amount);
+    self.locked_amount(&caller_address).set(&amount);
     Ok(())
   }
 
-  #[endpoint]
+  #[endpoint(payOut)]
   fn pay_out(&self) -> SCResult<()> {
-    let caller = self.blockchain().get_caller();
+    let caller = &self.blockchain().get_caller();
+    let caller_address = caller.to_address();
     require!(
-      self.get_lock_time(&caller) < self.get_current_time(),
+      self.lock_time(&caller_address).get() < self.get_current_time(),
       "You can't withdraw your money yet"
     );
-    require!(self.get_amount(&caller) > 0, "There is nothing to withdraw");
+    require!(self.locked_amount(&caller_address).get() > 0, "There is nothing to withdraw");
     self.send()
-      .direct_egld(&caller, &self.get_amount(&caller), &[]);
+      .direct_egld(caller, &self.locked_amount(&caller_address).get(), &[]);
 
-    self.clear_amount(&caller);
-    self.clear_lock_time(&caller);
+    self.locked_amount(&caller_address).clear();
+    self.lock_time(&caller_address).clear();
 
     Ok(())
   }
 
-  #[storage_set("owner")]
-  fn set_owner(&self, address: &Address);
+  #[storage_mapper("owner")]
+  fn owner(&self) -> SingleValueMapper<Address>;
 
-  #[storage_get("owner")]
-  fn get_owner(&self) -> Address;
+  #[view(getLockedAmount)]
+  #[storage_mapper("lockedAmount")]
+  fn locked_amount(&self, piggy_owner: &Address) -> SingleValueMapper<BigUint>;
 
-  #[storage_set("amount")]
-  fn set_amount(&self, piggy_owner: &Address, sum: Self::BigUint);
-
-  #[storage_get("amount")]
-  fn get_amount(&self, piggy_owner: &Address) -> Self::BigUint;
-
-  #[storage_clear("amount")]
-  fn clear_amount(&self, piggy_owner: &Address);
-
-  #[storage_set("lock_time")]
-  fn set_lock_time(&self, piggy_owner: &Address, lock_time: u64);
-
-  #[storage_get("lock_time")]
-  fn get_lock_time(&self, piggy_owner: &Address) -> u64;
-
-  #[storage_is_empty("lock_time")]
-  fn is_lock_time_empty(&self, piggy_owner: &Address) -> bool;
-
-  #[storage_clear("lock_time")]
-  fn clear_lock_time(&self, piggy_owner: &Address);
+  #[view(getLockTime)]
+  #[storage_mapper("lockTime")]
+  fn lock_time(&self, piggy_owner: &Address) -> SingleValueMapper<u64>;
 }

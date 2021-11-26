@@ -284,7 +284,15 @@ name = "piggybank"
 version = "0.1.0"
 dependencies = [
  "elrond-wasm",
+]
+
+[[package]]
+name = "piggybank-meta"
+version = "0.1.0"
+dependencies = [
+ "elrond-wasm",
  "elrond-wasm-debug",
+ "piggybank",
 ]
 
 [[package]]
