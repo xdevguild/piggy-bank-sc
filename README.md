@@ -41,6 +41,7 @@ Smart Contract deployment. You will need to do this once.
 The project name is `piggybank,` and the pem file is located in `wallets/test.pem`.
 
 **Upgrade the contract:**
+(here, with working SC example, change it if you deployed yours)
  
 ```
 erdpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9q5nz0p4xsf0hjnw --chain="D" --project=piggybank --pem="wallets/test.pem" --gas-limit=80000000 --proxy="https://testnet-gateway.elrond.com" --recall-nonce --send
@@ -49,6 +50,7 @@ erdpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9
 If there are changes in the contract, you can upgrade it.
 
 **Create the Piggy:**
+(here, with working SC example, change it if you deployed yours)
 
 ```
 erdpy --verbose contract call erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9q5nz0p4xsf0hjnw --chain="D" --pem="wallets/test.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1628619457 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
@@ -57,6 +59,7 @@ erdpy --verbose contract call erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9q5n
 As an argument for the `create_piggy` function, we will pass the timestamp for the lock time (should be in the future of course).
 
 **Add amount:**
+(here, with working SC example, change it if you deployed yours)
 
 ```
 erdpy --verbose contract call erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9q5nz0p4xsf0hjnw --chain="D" --pem="wallets/test.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
@@ -65,6 +68,7 @@ erdpy --verbose contract call erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9q5n
 We are adding one xEGLD (denomination 18, this is why it is, in fact, 1000000000000000000).
 
 **Payout:**
+(here, with working SC example, change it if you deployed yours)
 
 ```
 erdpy --verbose contract call erd1qqqqqqqqqqqqqpgqn8u7897v7jydzyr6fg65g9sadu9q5nz0p4xsf0hjnw --chain="D" --pem="wallets/test.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
