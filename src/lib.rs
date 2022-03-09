@@ -1,6 +1,7 @@
 #![no_std]
 
 elrond_wasm::imports!();
+elrond_wasm::derive_imports!();
 
 #[elrond_wasm::contract]
 pub trait PiggyBank {
@@ -13,69 +14,61 @@ pub trait PiggyBank {
   }
 
   #[init]
-  fn init(&self) -> SCResult<()> {
+  fn init(&self) {
     let my_address = &self.blockchain().get_caller();
-    self.owner().set(&my_address.to_address());
-    Ok(())
+    self.owner().set(my_address);
   }
 
   #[endpoint(createPiggy)]
-  fn create_piggy(&self, lock_time: u64) -> SCResult<()> {
+  fn create_piggy(&self, lock_time: u64) {
     let caller = &self.blockchain().get_caller();
-    let caller_address = caller.to_address();
     require!(
-      self.lock_time(&caller_address).is_empty() == true,
+      self.lock_time(&caller).is_empty() == true,
       "You already have one piggy"
     );
     require!(
       lock_time > self.get_current_time(),
       "Lock time should be in the future!"
     );
-    self.lock_time(&caller_address).set(&lock_time);
-    Ok(())
+    self.lock_time(&caller).set(&lock_time);
   }
 
   #[endpoint(addAmount)]
   #[payable("EGLD")]
-  fn add_amount(&self, #[payment] payment: BigUint) -> SCResult<()> {
+  fn add_amount(&self, #[payment] payment: BigUint) {
     let caller = &self.blockchain().get_caller();
-    let caller_address = caller.to_address();
     require!(
-      self.lock_time(&caller_address).is_empty() == false,
+      self.lock_time(&caller).is_empty() == false,
       "You need to create your piggy bank first"
     );
-    let sum = self.locked_amount(&caller_address).get();
+    let sum = self.locked_amount(&caller).get();
     let amount = self.add(sum, payment);
-    self.locked_amount(&caller_address).set(&amount);
-    Ok(())
+    self.locked_amount(&caller).set(amount);
   }
 
   #[endpoint(payOut)]
-  fn pay_out(&self) -> SCResult<()> {
+  fn pay_out(&self) {
     let caller = &self.blockchain().get_caller();
-    let caller_address = caller.to_address();
     require!(
-      self.lock_time(&caller_address).get() < self.get_current_time(),
+      self.lock_time(&caller).get() < self.get_current_time(),
       "You can't withdraw your money yet"
     );
-    require!(self.locked_amount(&caller_address).get() > 0, "There is nothing to withdraw");
+    require!(self.locked_amount(&caller).get() > 0, "There is nothing to withdraw");
     self.send()
-      .direct_egld(caller, &self.locked_amount(&caller_address).get(), &[]);
+      .direct_egld(&caller, &self.locked_amount(&caller).get(), &[]);
 
-    self.locked_amount(&caller_address).clear();
-    self.lock_time(&caller_address).clear();
-
-    Ok(())
+    self.locked_amount(&caller).clear();
+    self.lock_time(&caller).clear();
   }
 
   #[storage_mapper("owner")]
-  fn owner(&self) -> SingleValueMapper<Address>;
+  fn owner(&self) -> SingleValueMapper<ManagedAddress>;
 
   #[view(getLockedAmount)]
   #[storage_mapper("lockedAmount")]
-  fn locked_amount(&self, piggy_owner: &Address) -> SingleValueMapper<BigUint>;
+  fn locked_amount(&self, piggy_owner: &ManagedAddress) -> SingleValueMapper<BigUint>;
 
   #[view(getLockTime)]
   #[storage_mapper("lockTime")]
-  fn lock_time(&self, piggy_owner: &Address) -> SingleValueMapper<u64>;
+  fn lock_time(&self, piggy_owner: &ManagedAddress) -> SingleValueMapper<u64>;
 }

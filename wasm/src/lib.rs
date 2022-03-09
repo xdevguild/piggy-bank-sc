@@ -7,7 +7,6 @@
 elrond_wasm_node::wasm_endpoints! {
     piggybank
     (
-        init
         addAmount
         createPiggy
         getLockTime

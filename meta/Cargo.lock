@@ -48,6 +48,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d696c370c750c948ada61c69a0ee2cbbb9c50b1019ddb86d9317157a99c2cae"
 
 [[package]]
+name = "cargo_toml"
+version = "0.10.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "363c7cfaa15f101415c4ac9e68706ca4a2277773932828b33f96e59d28c68e62"
+dependencies = [
+ "serde",
+ "serde_derive",
+ "toml",
+]
+
+[[package]]
 name = "cfg-if"
 version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -79,9 +90,9 @@ dependencies = [
 
 [[package]]
 name = "elrond-codec"
-version = "0.8.3"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62c791ac0f5f720ff7b7b8ea4f15aa13c17cdb41c1c8831defa067851d6ecb9b"
+checksum = "d6d85f2b7c969a12da26157a989f759f59d1df2b0e2f4ae7b2ebb011334a63c1"
 dependencies = [
  "arrayvec",
  "elrond-codec-derive",
@@ -90,9 +101,9 @@ dependencies = [
 
 [[package]]
 name = "elrond-codec-derive"
-version = "0.8.3"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c8c461ea8e51e1facee8c3f8c84a9339f4307b29a9fad9109ca98e45fcb07b8"
+checksum = "ae84b062b57562daf6b90d12c6568a6df21ef355625f6dd21a3106d774456a51"
 dependencies = [
  "hex",
  "proc-macro2",
@@ -102,9 +113,9 @@ dependencies = [
 
 [[package]]
 name = "elrond-wasm"
-version = "0.23.1"
+version = "0.29.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f7b733e85c2b84b1de53f0a23abe7254d79fc3949840c7ab8dc2f6249fae6b9"
+checksum = "f6f18ea70041cfea059cdff5aaff8e0d9a0859821e3f2ac7d56a34d0193584f3"
 dependencies = [
  "bitflags",
  "elrond-codec",
@@ -116,27 +127,33 @@ dependencies = [
 
 [[package]]
 name = "elrond-wasm-debug"
-version = "0.23.1"
+version = "0.29.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a437589b4a1efd3c5e6319d04de1dd63ca97e980c276c39bdeb4c0baa437643"
+checksum = "8c587c69cc88fd9eadf936df6ecab0c915b95dc71f07a8bec729e1d085da5914"
 dependencies = [
+ "cargo_toml",
  "elrond-wasm",
  "hex",
  "mandos",
  "num-bigint",
  "num-traits",
+ "pathdiff",
+ "rand",
+ "rand_pcg",
+ "rand_seeder",
  "rustc_version",
  "serde",
  "serde_json",
  "sha2",
  "sha3",
+ "toml",
 ]
 
 [[package]]
 name = "elrond-wasm-derive"
-version = "0.23.1"
+version = "0.29.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec5023dff1e8277b4d8196d86217f5ff49abb5b463c991748f1969d444176c26"
+checksum = "8ec6ec0ec7a18bdc3d63126cb5e0c5fa9d3874dd915b7e030de16ee1cf5cc2b7"
 dependencies = [
  "hex",
  "proc-macro2",
@@ -213,9 +230,9 @@ checksum = "8521a1b57e76b1ec69af7599e75e38e7b7fad6610f037db8c79b127201b5d119"
 
 [[package]]
 name = "mandos"
-version = "0.11.1"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27bf7cd11f1278190deb39ac404d3eb217e972ab89ebb3558a902f7c7de8bdca"
+checksum = "d900ececaf3c154e5458df685766c711ad7cb97d4c49648c2ad3c7386d14aa2f"
 dependencies = [
  "hex",
  "num-bigint",
@@ -280,20 +297,32 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "624a8340c38c1b80fd549087862da4ba43e08858af025b236e509b6649fc13d5"
 
 [[package]]
+name = "pathdiff"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8835116a5c179084a830efb3adc117ab007512b535bc1a21c991d3b32a6b44dd"
+
+[[package]]
 name = "piggybank"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "elrond-wasm",
 ]
 
 [[package]]
 name = "piggybank-meta"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "elrond-wasm",
  "elrond-wasm-debug",
  "piggybank",
 ]
+
+[[package]]
+name = "ppv-lite86"
+version = "0.2.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eb9f9e6e233e5c4a35559a617bf40a4ec447db2e84c20b55a6f83167b7e57872"
 
 [[package]]
 name = "proc-macro2"
@@ -321,6 +350,60 @@ checksum = "3d3681b28cd95acfb0560ea9441f82d6a4504fa3b15b97bd7b6e952131820e95"
 dependencies = [
  "endian-type",
  "nibble_vec",
+]
+
+[[package]]
+name = "rand"
+version = "0.8.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34af8d1a0e25924bc5b7c43c079c942339d8f0a8b57c39049bef581b46327404"
+dependencies = [
+ "libc",
+ "rand_chacha",
+ "rand_core 0.6.3",
+]
+
+[[package]]
+name = "rand_chacha"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6c10a63a0fa32252be49d21e7709d4d4baf8d231c2dbce1eaa8141b9b127d88"
+dependencies = [
+ "ppv-lite86",
+ "rand_core 0.6.3",
+]
+
+[[package]]
+name = "rand_core"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "90bde5296fc891b0cef12a6d03ddccc162ce7b2aff54160af9338f8d40df6d19"
+
+[[package]]
+name = "rand_core"
+version = "0.6.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d34f1408f55294453790c48b2f1ebbb1c5b4b7563eb1f418bcfcfdbb06ebb4e7"
+dependencies = [
+ "getrandom",
+]
+
+[[package]]
+name = "rand_pcg"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16abd0c1b639e9eb4d7c50c0b8100b0d0f849be2349829c740fe8e6eb4816429"
+dependencies = [
+ "rand_core 0.5.1",
+]
+
+[[package]]
+name = "rand_seeder"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf2890aaef0aa82719a50e808de264f9484b74b442e1a3a0e5ee38243ac40bdb"
+dependencies = [
+ "rand_core 0.6.3",
 ]
 
 [[package]]
@@ -409,6 +492,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-xid",
+]
+
+[[package]]
+name = "toml"
+version = "0.5.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a31142970826733df8241ef35dc040ef98c679ab14d7c3e54d827099b3acecaa"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
