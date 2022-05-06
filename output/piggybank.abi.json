@@ -1,0 +1,85 @@
+{
+    "buildInfo": {
+        "rustc": {
+            "version": "1.61.0-nightly",
+            "commitHash": "4b043faba34ccc053a4d0110634c323f6c03765e",
+            "commitDate": "2022-02-24",
+            "channel": "Nightly",
+            "short": "rustc 1.61.0-nightly (4b043faba 2022-02-24)"
+        },
+        "contractCrate": {
+            "name": "piggybank",
+            "version": "0.2.2",
+            "git_version": "6f5fde9-modified"
+        },
+        "framework": {
+            "name": "elrond-wasm",
+            "version": "0.31.1"
+        }
+    },
+    "name": "PiggyBank",
+    "constructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "endpoints": [
+        {
+            "name": "createPiggy",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "lock_time",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "addAmount",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "EGLD"
+            ],
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "payOut",
+            "mutability": "mutable",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "getLockedAmount",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "piggy_owner",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "getLockTime",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "piggy_owner",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        }
+    ],
+    "hasCallback": false,
+    "types": {}
+}
