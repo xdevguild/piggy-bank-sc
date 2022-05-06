@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "piggybank",
             "version": "0.2.2",
-            "git_version": "cc770c4"
+            "git_version": "89aff65-modified"
         },
         "framework": {
             "name": "elrond-wasm",
