@@ -31,7 +31,8 @@ pub trait PiggyBank {
     // addAmount endpoint (endpoint reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#endpoint-and-view)
     #[endpoint(addAmount)]
     #[payable("EGLD")]
-    fn add_amount(&self, #[payment] payment: BigUint) {
+    fn add_amount(&self) {
+        let payment = self.call_value().egld_value();
         // get smart contract caller address (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#get_caller)
         let caller = &self.blockchain().get_caller();
         require!(

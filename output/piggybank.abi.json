@@ -9,12 +9,12 @@
         },
         "contractCrate": {
             "name": "piggybank",
-            "version": "0.2.2",
-            "git_version": "89aff65-modified"
+            "version": "0.2.3",
+            "git_version": "8274c62-modified"
         },
         "framework": {
             "name": "elrond-wasm",
-            "version": "0.31.1"
+            "version": "0.32.0"
         }
     },
     "name": "PiggyBank",
@@ -80,6 +80,7 @@
             ]
         }
     ],
+    "events": [],
     "hasCallback": false,
     "types": {}
 }
