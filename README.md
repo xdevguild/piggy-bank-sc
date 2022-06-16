@@ -25,28 +25,29 @@ erdpy contract build
 To use testnet switch to `--chain="T"` and --proxy="https://testnet-gateway.elrond.com".
 
 ### Example erdpy interaction commands
+##### These commands should be run one folder up from the cloned 'elrond-simple-sc' folder
 
 **Deploy the contract:**
 
 ```
-erdpy --verbose contract deploy --chain="D" --project=piggybank --pem="wallets/test.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+erdpy --verbose contract deploy --chain="D" --project=elrond-simple-sc --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
 ```
 
 Smart Contract deployment. You will need to do this once.
-In the example, the project name is `piggybank,` and the pem file is located in `wallets/test.pem`.
+In the example, the project name is `elrond-simple-sc`, and the pem file is located in `wallets/test.pem`.
 
 **Upgrade the contract:**
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
  
 ```
-erdpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --project=piggybank --pem="wallets/test.pem" --gas-limit=80000000 --proxy="https://testnet-gateway.elrond.com" --recall-nonce --send
+erdpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --project=elrond-simple-sc --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
 ```
 
 **Create the Piggy:**
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --pem="wallets/test.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1628619457 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1655316103 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
 ```
 
 As an argument for the `createPiggy` function, we will pass the timestamp for the lock time (it should be in the future, of course, use https://www.epochconverter.com/).
@@ -55,7 +56,7 @@ As an argument for the `createPiggy` function, we will pass the timestamp for th
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --pem="wallets/test.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
 ```
 
 We are adding one xEGLD (denomination 18, this is why it is, in fact, 1000000000000000000).
@@ -64,7 +65,7 @@ We are adding one xEGLD (denomination 18, this is why it is, in fact, 1000000000
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --pem="wallets/test.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq9xrwp7qnfamenqsxpwsf84x9e9sx8vxhgtksusvhgs --chain="D" --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
 ```
 
 It will check if you can withdraw. It will compare lock time and the current block timestamp. 
