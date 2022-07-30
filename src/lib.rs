@@ -59,7 +59,7 @@ pub trait PiggyBank {
         );
         // send egld (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#direct_egld)
         self.send()
-            .direct_egld(&caller, &self.locked_amount(&caller).get(), &[]);
+            .direct_egld(&caller, &self.locked_amount(&caller).get());
 
         self.locked_amount(&caller).clear();
         self.lock_time(&caller).clear();
