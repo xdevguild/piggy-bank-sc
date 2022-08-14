@@ -1,6 +1,6 @@
 ### PiggyBank - Elrond Smart Contract for learning purposes
 
-> **⚠ WARNING: Proper docs, updates, tests, and dapp are on the way! Stay tuned.**
+> **⚠ Proper docs, updates, tests, and dapp are on the way! Stay tuned.**
 
 While waiting for proper tutorials and docs, you can test it and play with it even now.
 
@@ -10,6 +10,9 @@ To interact with the PiggyBank Smart Contract, you would need to have:
 - PEM file derived from the seed phrase
 
 To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.elrond.com/sdk-and-tools/erdpy/deriving-the-wallet-pem-file/)
+
+### The article on how to prepare dev environment:
+- [Linux environment for development](https://elrond-dev-guild.gitbook.io/scrolls/readme/linux-environment-for-development)
 
 ### Old dapp (it will be rewritten soon)
 - https://elven-piggy-bank.netlify.app
