@@ -5,17 +5,17 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-// Reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#elrond_wasmcontract
+// Reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#elrond_wasmcontract
 #[elrond_wasm::contract]
 pub trait PiggyBank {
-    // Reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#init
+    // Reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#init
     #[init]
     fn init(&self) {}
 
-    // createPiggy endpoint (endpoint reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#endpoint-and-view)
+    // createPiggy endpoint (endpoint reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#endpoint-and-view)
     #[endpoint(createPiggy)]
     fn create_piggy(&self, lock_time: u64) {
-        // get smart contract caller address (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#get_caller)
+        // get smart contract caller address (reference: https://docs.multiversx.com/developers/developer-reference/wasm-api-functions#get_caller)
         let caller = &self.blockchain().get_caller();
         require!(
             self.lock_time(&caller).is_empty() == true,
@@ -28,12 +28,12 @@ pub trait PiggyBank {
         self.lock_time(&caller).set(&lock_time);
     }
 
-    // addAmount endpoint (endpoint reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#endpoint-and-view)
+    // addAmount endpoint (endpoint reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#endpoint-and-view)
     #[endpoint(addAmount)]
     #[payable("EGLD")]
     fn add_amount(&self) {
         let payment = self.call_value().egld_value();
-        // get smart contract caller address (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#get_caller)
+        // get smart contract caller address (reference: https://docs.multiversx.com/developers/developer-reference/wasm-api-functions#get_caller)
         let caller = &self.blockchain().get_caller();
         require!(
             self.lock_time(&caller).is_empty() == false,
@@ -44,10 +44,10 @@ pub trait PiggyBank {
         self.locked_amount(&caller).set(amount);
     }
 
-    // payOut endpoint (endpoint reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#endpoint-and-view)
+    // payOut endpoint (endpoint reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#endpoint-and-view)
     #[endpoint(payOut)]
     fn pay_out(&self) {
-        // get smart contract caller address (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#get_caller)
+        // get smart contract caller address (reference: https://docs.multiversx.com/developers/developer-reference/wasm-api-functions#get_caller)
         let caller = &self.blockchain().get_caller();
         require!(
             self.lock_time(&caller).get() < self.get_current_time(),
@@ -57,7 +57,7 @@ pub trait PiggyBank {
             self.locked_amount(&caller).get() > 0,
             "There is nothing to withdraw"
         );
-        // send egld (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#direct_egld)
+        // send egld (reference: https://docs.multiversx.com/developers/developer-reference/wasm-api-functions#direct_egld)
         self.send()
             .direct_egld(&caller, &self.locked_amount(&caller).get());
 
@@ -66,7 +66,7 @@ pub trait PiggyBank {
     }
 
     fn get_current_time(&self) -> u64 {
-        // get block timestamp (reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-api-functions/#get_block_timestamp)
+        // get block timestamp (reference: https://docs.multiversx.com/developers/developer-reference/wasm-api-functions#get_block_timestamp)
         self.blockchain().get_block_timestamp()
     }
 
@@ -74,14 +74,14 @@ pub trait PiggyBank {
         val1 + val2
     }
 
-    // getLockedAmount view (view reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#endpoint-and-view)
-    // lockedAmount storage mapper (storage reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#storage)
+    // getLockedAmount view (view reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#endpoint-and-view)
+    // lockedAmount storage mapper (storage reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#storage)
     #[view(getLockedAmount)]
     #[storage_mapper("lockedAmount")]
     fn locked_amount(&self, piggy_owner: &ManagedAddress) -> SingleValueMapper<BigUint>;
 
-    // getLockTime view (view reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#endpoint-and-view)
-    // lockedAmount storage mapper (storage reference: https://docs.elrond.com/developers/developer-reference/elrond-wasm-annotations/#storage)
+    // getLockTime view (view reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#endpoint-and-view)
+    // lockedAmount storage mapper (storage reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#storage)
     #[view(getLockTime)]
     #[storage_mapper("lockTime")]
     fn lock_time(&self, piggy_owner: &ManagedAddress) -> SingleValueMapper<u64>;
