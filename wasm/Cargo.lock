@@ -168,14 +168,14 @@ checksum = "6f61fba1741ea2b3d6a1e3178721804bb716a68a6aeba1149b5d52e3d464ea66"
 
 [[package]]
 name = "piggybank"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "multiversx-sc",
 ]
 
 [[package]]
 name = "piggybank-wasm"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "multiversx-sc-wasm-adapter",
  "piggybank",

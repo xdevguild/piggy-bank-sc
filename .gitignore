@@ -8,5 +8,6 @@
 
 # Output interactions data
 *.interaction.json
+mxpy.data-storage.json
 
 .vscode

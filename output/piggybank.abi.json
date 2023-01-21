@@ -2,14 +2,14 @@
     "buildInfo": {
         "rustc": {
             "version": "1.68.0-nightly",
-            "commitHash": "4c83bd03a9d94af35c97a6b8b595d40e291af84a",
-            "commitDate": "2023-01-19",
+            "commitHash": "5ce39f42bd2c8bca9c570f0560ebe1fce4eddb14",
+            "commitDate": "2023-01-20",
             "channel": "Nightly",
-            "short": "rustc 1.68.0-nightly (4c83bd03a 2023-01-19)"
+            "short": "rustc 1.68.0-nightly (5ce39f42b 2023-01-20)"
         },
         "contractCrate": {
             "name": "piggybank",
-            "version": "0.5.0"
+            "version": "0.5.1"
         },
         "framework": {
             "name": "multiversx-sc",
