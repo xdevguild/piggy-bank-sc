@@ -10,15 +10,16 @@ The logic is quite simple:
 While waiting for proper tutorials and docs, you can test it and play with it even now.
 
 To interact with the PiggyBank Smart Contract, you would need to have:
-- [wallet](https://devnet-wallet.elrond.com)
-- [erdpy](https://docs.elrond.com/sdk-and-tools/erdpy/installing-erdpy/)
+- [wallet](https://devnet-wallet.multiversx.com)
+- [mxpy](https://docs.multiversx.com/sdk-and-tools/sdk-py/installing-mxpy/)
 - PEM file derived from the seed phrase
 
-To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.elrond.com/sdk-and-tools/erdpy/deriving-the-wallet-pem-file/)
+You can get all with [VSCode MultiversX IDE extension](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) 
+
+To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.multiversx.com/sdk-and-tools/sdk-py/deriving-the-wallet-pem-file/)
 
 ### The articles on how to prepare dev environment:
-- [MultiversX docs tutorial](https://docs.elrond.com/developers/tutorials/staking-contract/#prerequisites)
-- [Linux environment for development](https://elrond-dev-guild.gitbook.io/scrolls/readme/linux-environment-for-development)
+- [MultiversX docs tutorial](https://docs.multiversx.com/developers/tutorials/staking-contract/#prerequisites)
 
 ### Old dapp (it will be rewritten soon)
 - https://elven-piggy-bank.netlify.app
@@ -26,24 +27,24 @@ To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](htt
 ### Start with contract build**
 
 ```
-erdpy contract build
+mxpy contract build
 ```
 
-**Important** You would need some xEGLD on the devnet. You can use the faucet: [https://r3d4.fr/elrond/devnet/](https://r3d4.fr/elrond/devnet/).
+**Important** You would need some xEGLD on the devnet. You can use the faucet: [https://r3d4.fr/faucet](https://r3d4.fr/faucet). To get some xEGLD you can also use offcial Web Wallets (devnet/testnet) or there is also an option on official [Discord channel](https://discord.com/channels/1045353153073258557/1049254556216872990).
 
-To use testnet switch to `--chain="T"` and --proxy="https://testnet-gateway.elrond.com".
+To use testnet switch to `--chain="T"` and --proxy="https://testnet-gateway.multiversx.com".
 
-### Example erdpy interaction commands
+### Example mxpy interaction commands
 ##### These commands should be run one folder up from the cloned 'multiversx-simple-sc' folder or you would need to adjust your --project path
 
 **Deploy the contract:**
 
 ```
-erdpy --verbose contract deploy --chain="D" --project=elrond-simple-sc --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+mxpy --verbose contract deploy --chain="D" --project=multiversx-simple-sc --pem="../walletKey.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 Smart Contract deployment. You will need to do this once.
-In the example, the project name is `elrond-simple-sc`, and the pem file is located in `wallets/test.pem`.
+In the example, the project name is `multiversx-simple-sc`, and the PEM file is located in `../walletKey.pem`.
 
 You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `deploy`.
 
@@ -51,7 +52,7 @@ You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/it
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1655316103 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1655316103 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 As an argument for the `createPiggy` function, we will pass the timestamp for the lock time (it should be in the future, of course, use https://www.epochconverter.com/).
@@ -62,7 +63,7 @@ You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/it
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 We are adding one xEGLD (denomination 18, this is why it is, in fact, 1000000000000000000).
@@ -73,7 +74,7 @@ You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/it
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-erdpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 It will check if you can withdraw. It will compare lock time and the current block timestamp. 
@@ -84,7 +85,7 @@ You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/it
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
  
 ```
-erdpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --project=elrond-simple-sc --pem="elrond-simple-sc/wallets/test.pem" --gas-limit=20000000 --proxy="https://devnet-gateway.elrond.com" --recall-nonce --send
+mxpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --project=multiversx-simple-sc --pem="../walletKey.pem" --gas-limit=20000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `upgrade`.

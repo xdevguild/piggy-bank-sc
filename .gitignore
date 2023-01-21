@@ -3,8 +3,10 @@
 /target/
 */target/
 
-# The erdpy output
+# The output
 # output
 
 # Output interactions data
 *.interaction.json
+
+.vscode

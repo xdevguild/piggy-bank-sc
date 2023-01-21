@@ -1,6 +1,6 @@
 [package]
 name = "piggybank-meta"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["Julian Ćwirko <julian.cwirko@gmail.com>"]
 edition = "2021"
 publish = false
@@ -8,8 +8,5 @@ publish = false
 [dependencies.piggybank]
 path = ".."
 
-[dependencies.elrond-wasm]
-version = "0.38.0"
-
-[dependencies.elrond-wasm-debug]
-version = "0.38.0"
+[dependencies.multiversx-sc-meta]
+version = "0.39.2"

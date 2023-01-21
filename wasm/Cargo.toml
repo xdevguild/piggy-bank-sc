@@ -1,6 +1,6 @@
 [package]
 name = "piggybank-wasm"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["Julian Ćwirko <julian.cwirko@gmail.com>"]
 edition = "2021"
 publish = false
@@ -18,12 +18,8 @@ panic = "abort"
 [dependencies.piggybank]
 path = ".."
 
-[dependencies.elrond-wasm-node]
-version = "0.38.0"
-
-[dependencies.elrond-wasm-output]
-version = "0.38.0"
-features = ["wasm-output-mode"]
+[dependencies.multiversx-sc-wasm-adapter]
+version = "0.39.2"
 
 [workspace]
 members = ["."]

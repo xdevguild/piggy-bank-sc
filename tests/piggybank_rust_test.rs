@@ -1,5 +1,5 @@
-use elrond_wasm::types::Address;
-use elrond_wasm_debug::{
+use multiversx_sc::types::Address;
+use multiversx_sc_scenario::{
     managed_address, managed_biguint, rust_biguint, testing_framework::*, DebugApi,
 };
 use piggybank::*;

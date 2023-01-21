@@ -2,18 +2,18 @@
     "buildInfo": {
         "rustc": {
             "version": "1.68.0-nightly",
-            "commitHash": "388538fc963e07a94e3fc3ac8948627fd2d28d29",
-            "commitDate": "2023-01-05",
+            "commitHash": "4c83bd03a9d94af35c97a6b8b595d40e291af84a",
+            "commitDate": "2023-01-19",
             "channel": "Nightly",
-            "short": "rustc 1.68.0-nightly (388538fc9 2023-01-05)"
+            "short": "rustc 1.68.0-nightly (4c83bd03a 2023-01-19)"
         },
         "contractCrate": {
             "name": "piggybank",
-            "version": "0.4.0"
+            "version": "0.5.0"
         },
         "framework": {
-            "name": "elrond-wasm",
-            "version": "0.38.0"
+            "name": "multiversx-sc",
+            "version": "0.39.2"
         }
     },
     "name": "PiggyBank",

@@ -1,12 +1,12 @@
 // We dont want a standard library here
 #![no_std]
 
-// Elrond imports
-elrond_wasm::imports!();
-elrond_wasm::derive_imports!();
+// MultiversX imports
+multiversx_sc::imports!();
+multiversx_sc::derive_imports!();
 
-// Reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#elrond_wasmcontract
-#[elrond_wasm::contract]
+// Reference: https://docs.multiversx.com/developers/developer-reference/sc-annotations#multiversx_sccontract
+#[multiversx_sc::contract]
 pub trait PiggyBank {
     // Reference: https://docs.multiversx.com/developers/developer-reference/wasm-annotations#init
     #[init]

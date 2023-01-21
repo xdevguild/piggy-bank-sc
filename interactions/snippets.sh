@@ -1,50 +1,50 @@
 USER_PEM="../walletKey.pem"
-PROXY="https://devnet-gateway.elrond.com"
+PROXY="https://devnet-gateway.multiversx.com"
 CHAIN_ID="D"
 
-SC_ADDRESS=erd1qqqqqqqqqqqqqpgqz22zn8njz6649aazgqwnspefekcd3pkrvafs4x732r
+SC_ADDRESS=erd1qqqqqqqqqqqqqpgqz2q2m9u8jgtejcvlax20a6na8xa0ux04vafslfpfx8
 LOCK_EPOCH_TIMESTAMP=1675690008
 AMOUNT_TO_LOCK=1000000000000000000
 
 deploy() {
-    erdpy --verbose contract deploy --project=${PROJECT} \
+    mxpy --verbose contract deploy --project=${PROJECT} \
     --recall-nonce --pem=${USER_PEM} \
-    --gas-limit=10000000 \
+    --gas-limit=2000000 \
     --send --outfile="deploy-devnet.interaction.json" \
     --proxy=${PROXY} --chain=${CHAIN_ID} || return
 }
 
 createPiggy() {
-    erdpy --verbose contract call ${SC_ADDRESS} \
+    mxpy --verbose contract call ${SC_ADDRESS} \
     --proxy=${PROXY} --chain=${CHAIN_ID} \
     --send --recall-nonce --pem=${USER_PEM} \
-    --gas-limit=5000000 \
+    --gas-limit=2000000 \
     --arguments ${LOCK_EPOCH_TIMESTAMP} \
     --function="createPiggy"
 }
 
 addAmount() {
-    erdpy --verbose contract call ${SC_ADDRESS} \
+    mxpy --verbose contract call ${SC_ADDRESS} \
     --proxy=${PROXY} --chain=${CHAIN_ID} \
     --send --recall-nonce --pem=${USER_PEM} \
-    --gas-limit=5000000 \
+    --gas-limit=2000000 \
     --value=${AMOUNT_TO_LOCK} \
     --function="addAmount" 
 }
 
 payOut() {
-    erdpy --verbose contract call ${SC_ADDRESS} \
+    mxpy --verbose contract call ${SC_ADDRESS} \
     --proxy=${PROXY} --chain=${CHAIN_ID} \
     --send --recall-nonce --pem=${USER_PEM} \
-    --gas-limit=5000000 \
+    --gas-limit=2000000 \
     --function="payOut"
 }
 
 upgrade() {
-  erdpy --verbose contract upgrade ${SC_ADDRESS} \
+  mxpy --verbose contract upgrade ${SC_ADDRESS} \
     --project=${PROJECT} \
     --recall-nonce --pem=${USER_PEM} \
-    --gas-limit=20000000 \
+    --gas-limit=2000000 \
     --send --outfile="upgrade-devnet.interaction.json" \
     --proxy=${PROXY} --chain=${CHAIN_ID} || return
 }
