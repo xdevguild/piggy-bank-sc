@@ -19,6 +19,7 @@ You can get all with [VSCode MultiversX IDE extension](https://marketplace.visua
 To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.multiversx.com/sdk-and-tools/sdk-py/deriving-the-wallet-pem-file/)
 
 ### The articles on how to prepare dev environment:
+- [VSCode IDE extension walkthrough video](https://youtu.be/y0beoihLppA)
 - [MultiversX docs tutorial](https://docs.multiversx.com/developers/tutorials/staking-contract/#prerequisites)
 
 ### Old dapp (it will be rewritten soon)
