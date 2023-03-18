@@ -1,6 +1,6 @@
 [package]
 name = "piggybank-meta"
-version = "0.5.1"
+version = "0.5.2"
 authors = ["Julian Ćwirko <julian.cwirko@gmail.com>"]
 edition = "2021"
 publish = false
@@ -9,4 +9,4 @@ publish = false
 path = ".."
 
 [dependencies.multiversx-sc-meta]
-version = "0.39.2"
+version = "0.39.6"

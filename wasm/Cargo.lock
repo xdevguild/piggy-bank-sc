@@ -84,9 +84,9 @@ checksum = "8452105ba047068f40ff7093dd1d9da90898e63dd61736462e9cdda6a90ad3c3"
 
 [[package]]
 name = "multiversx-sc"
-version = "0.39.2"
+version = "0.39.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ea71ae46a951d0dae879252a9c83f4de97ebfbaa47f41d99fae7b4f5c0c4916"
+checksum = "3904e7b2e2600c61c01bceaf856e110870a98756de7d083e70f214612c229064"
 dependencies = [
  "bitflags",
  "hashbrown",
@@ -121,9 +121,9 @@ dependencies = [
 
 [[package]]
 name = "multiversx-sc-derive"
-version = "0.39.2"
+version = "0.39.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd39e9fba50cedfc42649906fc8941593083881dc43b0f13e92908bc1f489a14"
+checksum = "08957923ada01e32a5490dc0e8ae5a8997a3d509e0300d8a550a966a76f3fa58"
 dependencies = [
  "hex",
  "proc-macro2",
@@ -134,9 +134,9 @@ dependencies = [
 
 [[package]]
 name = "multiversx-sc-wasm-adapter"
-version = "0.39.2"
+version = "0.39.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "99d796db7b875a6c088187d188826f0e0762b14e06412f1c6b7991efd06a297e"
+checksum = "da0f97b2a6a17c7847fe2210e168b69f2e8dcb081e1fa3a9eef67d58a02f2283"
 dependencies = [
  "multiversx-sc",
  "wee_alloc",
@@ -168,14 +168,14 @@ checksum = "6f61fba1741ea2b3d6a1e3178721804bb716a68a6aeba1149b5d52e3d464ea66"
 
 [[package]]
 name = "piggybank"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "multiversx-sc",
 ]
 
 [[package]]
 name = "piggybank-wasm"
-version = "0.5.1"
+version = "0.5.2"
 dependencies = [
  "multiversx-sc-wasm-adapter",
  "piggybank",

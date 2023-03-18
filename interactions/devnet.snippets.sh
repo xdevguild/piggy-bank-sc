@@ -5,7 +5,7 @@ CHAIN_ID="D"
 SC_ADDRESS=$(mxpy data load --key=address-devnet)
 
 ## Example values:
-# LOCK_EPOCH_TIMESTAMP=1675690008
+# LOCK_EPOCH_TIMESTAMP=1734501286
 # AMOUNT_TO_LOCK=1000000000000000000
 
 deploy() {
