@@ -40,7 +40,7 @@ pub trait PiggyBank {
             "You need to create your piggy bank first"
         );
         let sum = self.locked_amount(&caller).get();
-        let amount = self.add(sum, payment);
+        let amount = self.add(sum, payment.clone_value());
         self.locked_amount(&caller).set(amount);
     }
 

@@ -41,13 +41,13 @@ To use testnet switch to `--chain="T"` and --proxy="https://testnet-gateway.mult
 **Deploy the contract:**
 
 ```
-mxpy --verbose contract deploy --chain="D" --project=multiversx-simple-sc --pem="../walletKey.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
+mxpy --verbose contract deploy --chain="D" --bytecode="./output/piggybank.wasm" --pem="../walletKey.pem" --gas-limit=80000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 Smart Contract deployment. You will need to do this once.
 In the example, the project name is `multiversx-simple-sc`, and the PEM file is located in `../walletKey.pem`.
 
-You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `deploy`.
+You can also use snippets. In the terminal run `. interactions/devnet.snippets.sh && deploy`.
 
 **Create the Piggy:**
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
@@ -58,7 +58,7 @@ mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5
 
 As an argument for the `createPiggy` function, we will pass the timestamp for the lock time (it should be in the future, of course, use https://www.epochconverter.com/).
 
-You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `createPiggy`.
+You can also use snippets. In the terminal run `. interactions/devnet.snippets.sh && createPiggy`.
 
 **Add amount:**
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
@@ -69,7 +69,7 @@ mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5
 
 We are adding one xEGLD (denomination 18, this is why it is, in fact, 1000000000000000000).
 
-You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `addAmount`.
+You can also use snippets. In the terminal run `. interactions/devnet.snippets.sh && addAmount`.
 
 **Payout:**
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
@@ -80,16 +80,16 @@ mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5
 
 It will check if you can withdraw. It will compare lock time and the current block timestamp. 
 
-You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `payOut`.
+You can also use snippets. In the terminal run `. interactions/devnet.snippets.sh && payOut`.
 
 **Upgrade the contract:**
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
  
 ```
-mxpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --project=multiversx-simple-sc --pem="../walletKey.pem" --gas-limit=20000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
+mxpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --bytecode="./output/piggybank.wasm" --pem="../walletKey.pem" --gas-limit=20000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
-You can also use [VSCode MultiversX SDK](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) and run a snippet called `upgrade`.
+You can also use snippets. In the terminal run `. interactions/devnet.snippets.sh && upgrade`.
 
 ### Snippets
 

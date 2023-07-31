@@ -1,6 +1,7 @@
 USER_PEM="../walletKey.pem"
 PROXY="https://devnet-gateway.multiversx.com"
 CHAIN_ID="D"
+BYTECODE_PATH="./output/piggybank.wasm"
 
 SC_ADDRESS=$(mxpy data load --key=address-devnet)
 
@@ -9,7 +10,7 @@ SC_ADDRESS=$(mxpy data load --key=address-devnet)
 # AMOUNT_TO_LOCK=1000000000000000000
 
 deploy() {
-    mxpy --verbose contract deploy --chain=${CHAIN_ID} --project=${PROJECT} --pem=${USER_PEM} --gas-limit=20000000 --proxy=${PROXY} --recall-nonce --outfile="deploy-devnet.interaction.json" --send
+    mxpy --verbose contract deploy --chain=${CHAIN_ID} --bytecode=${BYTECODE_PATH} --pem=${USER_PEM} --gas-limit=20000000 --proxy=${PROXY} --recall-nonce --outfile="deploy-devnet.interaction.json" --send
 
     SC_ADDRESS=$(mxpy data parse --file="deploy-devnet.interaction.json" --expression="data['contractAddress']")
     mxpy data store --key=address-devnet --value=${SC_ADDRESS}
@@ -33,5 +34,5 @@ payOut() {
 }
 
 upgrade() {
-  mxpy --verbose contract upgrade ${SC_ADDRESS} --project=${PROJECT} --chain=${CHAIN_ID} --pem=${USER_PEM} --gas-limit=2000000 --proxy=${PROXY} --recall-nonce --send
+  mxpy --verbose contract upgrade ${SC_ADDRESS} --bytecode=${BYTECODE_PATH} --chain=${CHAIN_ID} --pem=${USER_PEM} --gas-limit=2000000 --proxy=${PROXY} --recall-nonce --send
 }
