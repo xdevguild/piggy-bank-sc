@@ -1,6 +1,6 @@
 [package]
 name = "piggybank"
-version = "0.5.3"
+version = "0.5.4"
 authors = ["Julian Ćwirko <julian.cwirko@gmail.com>"]
 edition = "2021"
 publish = false
@@ -9,7 +9,7 @@ publish = false
 path = "src/lib.rs"
 
 [dependencies.multiversx-sc]
-version = "0.42.0"
+version = "0.45.1"
 
 [dev-dependencies.multiversx-sc-scenario]
-version = "0.42.0"
+version = "0.45.1"

@@ -19,8 +19,9 @@ You can get all with [VSCode MultiversX IDE extension](https://marketplace.visua
 To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.multiversx.com/sdk-and-tools/sdk-py/deriving-the-wallet-pem-file/)
 
 ### The articles on how to prepare dev environment:
-- [VSCode IDE extension walkthrough video](https://youtu.be/y0beoihLppA)
+- [Devcontainers](https://docs.multiversx.com/sdk-and-tools/devcontainers)
 - [MultiversX docs tutorial](https://docs.multiversx.com/developers/tutorials/staking-contract/#prerequisites)
+- [VSCode IDE extension walkthrough video](https://youtu.be/y0beoihLppA)
 
 ### Old dapp (it will be rewritten soon)
 - https://elven-piggy-bank.netlify.app
@@ -53,7 +54,7 @@ You can also use snippets. In the terminal run `. interactions/devnet.snippets.s
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1655316103 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqvqphdwsdtd6cnlt025kuu9hzjqhnexgu67es8lqc44 --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="createPiggy" --arguments 1655316103 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 As an argument for the `createPiggy` function, we will pass the timestamp for the lock time (it should be in the future, of course, use https://www.epochconverter.com/).
@@ -64,7 +65,7 @@ You can also use snippets. In the terminal run `. interactions/devnet.snippets.s
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqvqphdwsdtd6cnlt025kuu9hzjqhnexgu67es8lqc44 --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="addAmount" --value=1000000000000000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 We are adding one xEGLD (denomination 18, this is why it is, in fact, 1000000000000000000).
@@ -75,7 +76,7 @@ You can also use snippets. In the terminal run `. interactions/devnet.snippets.s
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
 
 ```
-mxpy --verbose contract call erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqvqphdwsdtd6cnlt025kuu9hzjqhnexgu67es8lqc44 --chain="D" --pem="../walletKey.pem" --gas-limit=5000000 --function="payOut" --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 It will check if you can withdraw. It will compare lock time and the current block timestamp. 
@@ -86,7 +87,7 @@ You can also use snippets. In the terminal run `. interactions/devnet.snippets.s
 (here, with the working SC address example, change it, if you deployed yours, you should have one)
  
 ```
-mxpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgq59rkyerlfv70635d5ym7s8tmx37e6q5avafsxcqpta --chain="D" --bytecode="./output/piggybank.wasm" --pem="../walletKey.pem" --gas-limit=20000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
+mxpy --verbose contract upgrade erd1qqqqqqqqqqqqqpgqvqphdwsdtd6cnlt025kuu9hzjqhnexgu67es8lqc44 --chain="D" --bytecode="./output/piggybank.wasm" --pem="../walletKey.pem" --gas-limit=20000000 --proxy="https://devnet-gateway.multiversx.com" --recall-nonce --send
 ```
 
 You can also use snippets. In the terminal run `. interactions/devnet.snippets.sh && upgrade`.
