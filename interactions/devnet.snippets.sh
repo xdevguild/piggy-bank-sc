@@ -34,5 +34,5 @@ payOut() {
 }
 
 upgrade() {
-  mxpy --verbose contract upgrade ${SC_ADDRESS} --bytecode=${BYTECODE_PATH} --chain=${CHAIN_ID} --pem=${USER_PEM} --gas-limit=2000000 --proxy=${PROXY} --recall-nonce --send
+  mxpy --verbose contract upgrade ${SC_ADDRESS} --bytecode=${BYTECODE_PATH} --chain=${CHAIN_ID} --pem=${USER_PEM} --gas-limit=10000000 --proxy=${PROXY} --recall-nonce --send
 }

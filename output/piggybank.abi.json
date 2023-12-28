@@ -1,19 +1,19 @@
 {
     "buildInfo": {
         "rustc": {
-            "version": "1.73.0-nightly",
-            "commitHash": "db7ff98a72f3e742b641f9cb16d0e8c285e87e9b",
-            "commitDate": "2023-07-31",
+            "version": "1.71.0-nightly",
+            "commitHash": "a2b1646c597329d0a25efa3889b66650f65de1de",
+            "commitDate": "2023-05-25",
             "channel": "Nightly",
-            "short": "rustc 1.73.0-nightly (db7ff98a7 2023-07-31)"
+            "short": "rustc 1.71.0-nightly (a2b1646c5 2023-05-25)"
         },
         "contractCrate": {
             "name": "piggybank",
-            "version": "0.5.4"
+            "version": "0.5.5"
         },
         "framework": {
             "name": "multiversx-sc",
-            "version": "0.45.1"
+            "version": "0.45.2"
         }
     },
     "name": "PiggyBank",
@@ -22,6 +22,12 @@
         "outputs": []
     },
     "endpoints": [
+        {
+            "name": "upgrade",
+            "mutability": "mutable",
+            "inputs": [],
+            "outputs": []
+        },
         {
             "name": "createPiggy",
             "mutability": "mutable",
