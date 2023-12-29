@@ -96,3 +96,7 @@ After deploying the smart contract, you need to edit the `SC_ADDRESS`. Also, mak
 ### Testing
 
 You will find tests in `tests/piggybank_rust_test.rs`. To run a test, you can use click on the `Run Test` button from under the test name in VS Code or you can run it with `cargo test --test piggybank_rust_test`.
+
+### Development
+Besides cloning the repository, you can also use buildo-begins CLI:
+- `npx buildo-begins@latest init` - from the list, choose Piggy Bank smart contract. You can also initialize the dapp for interactions.
