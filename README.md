@@ -5,8 +5,6 @@ The logic is quite simple:
 2. You can send an amount of EGLD to the smart contract, and it will be locked till the configured date
 3. You can then payout the amount, but only after the configured lock date
 
-Check the dapp: https://piggy-bank-dapp.vercel.app/
-
 To interact with the PiggyBank Smart Contract, you would need to have:
 - [wallet](https://devnet-wallet.multiversx.com)
 - [mxpy](https://docs.multiversx.com/sdk-and-tools/sdk-py/installing-mxpy/)
@@ -15,6 +13,8 @@ To interact with the PiggyBank Smart Contract, you would need to have:
 You can get all with [VSCode MultiversX IDE extension](https://marketplace.visualstudio.com/items?itemName=Elrond.vscode-elrond-ide) 
 
 To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.multiversx.com/sdk-and-tools/sdk-py/deriving-the-wallet-pem-file/)
+
+**For simplicity, you can also deploy and interact using the dApp:** https://piggy-bank-dapp.vercel.app/
 
 ### The articles on how to prepare dev environment:
 - [Devcontainers](https://docs.multiversx.com/sdk-and-tools/devcontainers)
