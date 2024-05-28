@@ -1,0 +1,205 @@
+{
+    "steps": [
+        {
+            "step": "setState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "1",
+                    "balance": "100"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:user": {
+                    "nonce": "1",
+                    "balance": "100"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "newAddresses": [
+                {
+                    "creatorAddress": "address:owner",
+                    "creatorNonce": "1",
+                    "newAddress": "sc:piggybank"
+                }
+            ]
+        },
+        {
+            "step": "scDeploy",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "contractCode": "mxsc:output/piggybank.mxsc.json",
+                "arguments": [],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:piggybank",
+                "function": "createPiggy",
+                "arguments": [
+                    "0xf548f8f7"
+                ],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:piggybank",
+                "egldValue": "10",
+                "function": "addAmount",
+                "arguments": [],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scQuery",
+            "id": "",
+            "tx": {
+                "to": "sc:piggybank",
+                "function": "getLockTime",
+                "arguments": [
+                    "0x6f776e65725f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f"
+                ]
+            },
+            "expect": {
+                "out": [
+                    "0xf548f8f7"
+                ],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scQuery",
+            "id": "",
+            "tx": {
+                "to": "sc:piggybank",
+                "function": "getLockedAmount",
+                "arguments": [
+                    "0x6f776e65725f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f"
+                ]
+            },
+            "expect": {
+                "out": [
+                    "0x0a"
+                ],
+                "status": "0"
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "address:owner": {
+                    "balance": "90",
+                    "storage": "*",
+                    "code": "*",
+                    "owner": "*"
+                }
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "sc:piggybank": {
+                    "balance": "10",
+                    "storage": "*",
+                    "code": "*",
+                    "owner": "*"
+                }
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:piggybank",
+                "function": "payOut",
+                "arguments": [],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "status": "4",
+                "message": "str:You can't withdraw your money yet"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:user",
+                "to": "sc:piggybank",
+                "function": "createPiggy",
+                "arguments": [
+                    "0xf548f8f7"
+                ],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:user",
+                "to": "sc:piggybank",
+                "egldValue": "20",
+                "function": "addAmount",
+                "arguments": [],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "address:user": {
+                    "balance": "80",
+                    "storage": "*",
+                    "code": "*",
+                    "owner": "*"
+                }
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "sc:piggybank": {
+                    "balance": "30",
+                    "storage": "*",
+                    "code": "*",
+                    "owner": "*"
+                }
+            }
+        }
+    ]
+}

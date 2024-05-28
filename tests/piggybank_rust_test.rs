@@ -1,134 +1,110 @@
-use multiversx_sc::types::Address;
-use multiversx_sc_scenario::{
-    managed_address, managed_biguint, rust_biguint, testing_framework::*, DebugApi,
-};
+use multiversx_sc_scenario::imports::*;
+
 use piggybank::*;
 
-const WASM_PATH: &'static str = "output/piggybank.wasm";
-const USER_BALANCE: u64 = 1_000_000_000_000_000_000;
+// new types
+const OWNER_ADDRESS: TestAddress = TestAddress::new("owner");
+const USER_ADDRESS: TestAddress = TestAddress::new("user");
+const PIGGYBANK_ADDRESS: TestSCAddress = TestSCAddress::new("piggybank");
+const CODE_PATH: MxscPath = MxscPath::new("output/piggybank.mxsc.json");
+const LOCK_TIMESTAMP: u64 = 4115200247u64;
 
-struct ContractSetup<ContractObjBuilder>
-where
-    ContractObjBuilder: 'static + Copy + Fn() -> piggybank::ContractObj<DebugApi>,
-{
-    pub b_mock: BlockchainStateWrapper,
-    pub user_address: Address,
-    pub contract_wrapper: ContractObjWrapper<piggybank::ContractObj<DebugApi>, ContractObjBuilder>,
-}
+fn world() -> ScenarioWorld {
+    let mut blockchain = ScenarioWorld::new();
 
-impl<ContractObjBuilder> ContractSetup<ContractObjBuilder>
-where
-    ContractObjBuilder: 'static + Copy + Fn() -> piggybank::ContractObj<DebugApi>,
-{
-    pub fn new(sc_builder: ContractObjBuilder) -> Self {
-        let rust_zero = rust_biguint!(0u64);
-        let mut b_mock = BlockchainStateWrapper::new();
-        let owner_address = b_mock.create_user_account(&rust_zero);
-        let user_address = b_mock.create_user_account(&rust_biguint!(USER_BALANCE));
-        let sc_wrapper =
-            b_mock.create_sc_account(&rust_zero, Some(&owner_address), sc_builder, WASM_PATH);
-
-        // simulate deploy
-        b_mock
-            .execute_tx(&owner_address, &sc_wrapper, &rust_zero, |sc| {
-                sc.init();
-            })
-            .assert_ok();
-
-        ContractSetup {
-            b_mock,
-            user_address,
-            contract_wrapper: sc_wrapper,
-        }
-    }
+    blockchain.register_contract(CODE_PATH, piggybank::ContractBuilder);
+    blockchain
 }
 
 #[test]
-fn create_piggy_test() {
-    let mut setup = ContractSetup::new(piggybank::contract_obj);
-    let user_addr = setup.user_address.clone();
+fn piggybank_blackbox() {
+    let mut world = world(); // ScenarioWorld
 
-    setup
-        .b_mock
-        .execute_tx(
-            &user_addr,
-            &setup.contract_wrapper,
-            &rust_biguint!(0u64),
-            |sc| {
-                sc.create_piggy(1675690008u64);
+    // starting mandos trace
+    world.start_trace();
 
-                assert_eq!(
-                    sc.lock_time(&managed_address!(&user_addr)).get(),
-                    1675690008u64
-                );
-            },
-        )
-        .assert_ok();
-}
+    // set states for owners
+    world.account(OWNER_ADDRESS).nonce(1).balance(100);
+    world.account(USER_ADDRESS).nonce(1).balance(100);
 
-#[test]
-fn add_amount_test() {
-    let mut setup = ContractSetup::new(piggybank::contract_obj);
-    let user_addr = setup.user_address.clone();
+    // deploy the contract
+    let new_address = world
+        .tx() // tx with test environment
+        .from(OWNER_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy) // typed call - proxy
+        .init() // deploy call
+        .code(CODE_PATH)
+        .new_address(PIGGYBANK_ADDRESS) // custom deploy address for tests
+        .returns(ReturnsNewAddress) // returns new address after deploy
+        .run(); // send transaction
 
-    setup
-        .b_mock
-        .execute_tx(
-            &user_addr,
-            &setup.contract_wrapper,
-            &rust_biguint!(USER_BALANCE),
-            |sc| {
-                sc.lock_time(&managed_address!(&user_addr))
-                    .set(1675690008u64);
+    assert_eq!(new_address, PIGGYBANK_ADDRESS.to_address());
 
-                sc.add_amount();
+    world
+        .tx() // tx with sc environment
+        .from(OWNER_ADDRESS)
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .create_piggy(LOCK_TIMESTAMP)
+        .run();
 
-                assert_eq!(
-                    sc.locked_amount(&managed_address!(&user_addr)).get(),
-                    managed_biguint!(USER_BALANCE)
-                );
-            },
-        )
-        .assert_ok();
+    world
+        .tx() // tx with sc environment
+        .from(OWNER_ADDRESS)
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .add_amount()
+        .egld(BigUint::from(10u32))
+        .run();
 
-    setup
-        .b_mock
-        .check_egld_balance(&user_addr, &rust_biguint!(0));
-}
+    world
+        .query()
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .lock_time(OWNER_ADDRESS)
+        .returns(ExpectValue(LOCK_TIMESTAMP))
+        .run();
 
-#[test]
-fn payout_test() {
-    let mut setup = ContractSetup::new(piggybank::contract_obj);
-    let user_addr = setup.user_address.clone();
+    world
+        .query()
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .locked_amount(OWNER_ADDRESS)
+        .returns(ExpectValue(BigUint::from(10u32)))
+        .run();
 
-    setup.b_mock.set_block_timestamp(1675690008u64);
+    world.check_account(OWNER_ADDRESS).balance(90);
+    world.check_account(PIGGYBANK_ADDRESS).balance(10);
 
-    setup
-        .b_mock
-        .execute_tx(
-            &user_addr,
-            &setup.contract_wrapper,
-            &rust_biguint!(USER_BALANCE),
-            |sc| {
-                sc.lock_time(&managed_address!(&user_addr))
-                    .set(1673016426u64);
+    world
+        .tx() // tx with sc environment
+        .from(OWNER_ADDRESS)
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .pay_out()
+        .returns(ExpectError(4, "You can't withdraw your money yet"))
+        .run();
 
-                sc.locked_amount(&managed_address!(&user_addr))
-                    .set(managed_biguint!(USER_BALANCE));
+    // Create another piggy for a new user
+    world
+        .tx() // tx with sc environment
+        .from(USER_ADDRESS)
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .create_piggy(LOCK_TIMESTAMP)
+        .run();
 
-                sc.pay_out();
+    world
+        .tx() // tx with sc environment
+        .from(USER_ADDRESS)
+        .to(PIGGYBANK_ADDRESS)
+        .typed(piggybank_proxy::PiggyBankProxy)
+        .add_amount()
+        .egld(BigUint::from(20u32))
+        .run();
 
-                assert_eq!(
-                    sc.locked_amount(&managed_address!(&user_addr)).get(),
-                    managed_biguint!(0u64)
-                );
+    world.check_account(USER_ADDRESS).balance(80);
+    world.check_account(PIGGYBANK_ADDRESS).balance(30);
 
-                assert_eq!(sc.lock_time(&managed_address!(&user_addr)).get(), 0u64);
-            },
-        )
-        .assert_ok();
-
-    setup
-        .b_mock
-        .check_egld_balance(&user_addr, &rust_biguint!(USER_BALANCE));
+    world.write_scenario_trace("tests/piggybank.scen.json");
 }

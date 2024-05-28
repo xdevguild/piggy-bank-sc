@@ -1,0 +1,3 @@
+
+[[proxy]]
+path = "src/piggybank_proxy.rs"
