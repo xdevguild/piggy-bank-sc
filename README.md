@@ -14,7 +14,7 @@ You can get all with [VSCode MultiversX IDE extension](https://marketplace.visua
 
 To derive the wallet pem file, check the docs [Deriving the Wallet PEM file](https://docs.multiversx.com/sdk-and-tools/sdk-py/deriving-the-wallet-pem-file/)
 
-**For simplicity, you can also deploy and interact using the dApp:** https://piggy-bank-dapp.vercel.app/
+**For simplicity, you can also deploy and interact using the dApp:** https://piggy-bank-dapp.netlify.app/
 
 ## How to prepare dev environment:
 
